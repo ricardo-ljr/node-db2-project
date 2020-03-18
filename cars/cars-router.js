@@ -45,4 +45,38 @@ router.post("/", (req, res) => {
     });
 });
 
+// PUT AND DELETE
+
+router.put("/:id", (req, res) => {
+  db("cars")
+    .where({ id: req.params.id })
+    .update(req.body)
+    .then(update => {
+      if (update > 0) {
+        res.status(200).json(update);
+      } else {
+        res.status(404).json({ message: "There was an error" });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({ message: "Couldn't update", error });
+    });
+});
+
+router.delete("/:id", (req, res) => {
+  db("cars")
+    .where({ id: req.params.id })
+    .del()
+    .then(deleteCar => {
+      if (deleteCar > 0) {
+        res.status(200).json(deleteCar);
+      } else {
+        res.status(404).json({ message: "No car with ID found" });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({ message: "There was an error deleting", error });
+    });
+});
+
 module.exports = router;

@@ -11,6 +11,8 @@ exports.up = function(knex) {
     tbl.string("make", 255).notNullable();
     tbl.string("model", 255).notNullable();
     tbl.integer("mileage");
+    tbl.string("transmission", 255);
+    tbl.string("titleStatus", 255);
   });
 };
 
